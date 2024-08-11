@@ -1,13 +1,32 @@
-[gd_scene load_steps=2 format=3 uid="uid://ddd1vjs2alur6"]
+[gd_scene load_steps=5 format=3 uid="uid://ddd1vjs2alur6"]
 
-[ext_resource type="PackedScene" uid="uid://f0erdtibs7dm" path="res://Scenes/Coin.tscn" id="1_7filr"]
+[ext_resource type="PackedScene" uid="uid://cmbh87lmu5bvy" path="res://Scenes/Coin.tscn" id="1_hqeiw"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xbufq"]
+albedo_color = Color(0.647059, 0.988235, 0.576471, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_0s385"]
+material = SubResource("StandardMaterial3D_xbufq")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_apvu0"]
+size = Vector3(7.82608, 0.141475, 7.44562)
 
 [node name="MainGame" type="Node3D"]
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.32326)
-
-[node name="Coin" parent="." instance=ExtResource("1_7filr")]
+transform = Transform3D(1, 0, 0, 0, 0.955144, 0.296142, 0, -0.296142, 0.955144, -0.0845034, 2.42298, 4.37407)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.515621, 0.856817, 0, -0.856817, 0.515621, -2.16726, 0, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(3.59021, 0, 0, 0, 1, 0, 0, 0, 3.67494, 0, 0, 0)
+mesh = SubResource("PlaneMesh_0s385")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_apvu0")
+
+[node name="Coin" parent="." instance=ExtResource("1_hqeiw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25305, 0)
