@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://ddd1vjs2alur6"]
+[gd_scene load_steps=8 format=3 uid="uid://ddd1vjs2alur6"]
 
 [ext_resource type="PackedScene" uid="uid://cmbh87lmu5bvy" path="res://Scenes/Coin.tscn" id="1_hqeiw"]
+[ext_resource type="Texture2D" uid="uid://b2ygv72aqcqxm" path="res://icon.svg" id="2_13343"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xbufq"]
 albedo_color = Color(0.647059, 0.988235, 0.576471, 1)
@@ -11,6 +12,28 @@ material = SubResource("StandardMaterial3D_xbufq")
 [sub_resource type="BoxShape3D" id="BoxShape3D_apvu0"]
 size = Vector3(7.82608, 0.141475, 7.44562)
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_r1txr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_13343")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_njtm8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_13343")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="MainGame" type="Node3D"]
 
 [node name="Camera3D" type="Camera3D" parent="."]
@@ -20,6 +43,7 @@ transform = Transform3D(1, 0, 0, 0, 0.955144, 0.296142, 0, -0.296142, 0.955144, 
 transform = Transform3D(1, 0, 0, 0, 0.515621, 0.856817, 0, -0.856817, 0.515621, -2.16726, 0, 0)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 3.6487)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
 transform = Transform3D(3.59021, 0, 0, 0, 1, 0, 0, 0, 3.67494, 0, 0, 0)
@@ -29,4 +53,22 @@ mesh = SubResource("PlaneMesh_0s385")
 shape = SubResource("BoxShape3D_apvu0")
 
 [node name="Coin" parent="." instance=ExtResource("1_hqeiw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25305, 0)
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 1.25305, 0)
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="Cowboy" type="AnimatedSprite2D" parent="Control"]
+position = Vector2(1001, 499)
+scale = Vector2(2.14453, 2.14453)
+sprite_frames = SubResource("SpriteFrames_r1txr")
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+transform = Transform3D(3.99549, 0, 0, 0, 3.99549, 0, 0, 0, 1, -2.74329, 1.54295, -2.00902)
+sprite_frames = SubResource("SpriteFrames_njtm8")
