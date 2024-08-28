@@ -2,15 +2,22 @@ extends RigidBody3D
 
 @onready var ClickTimer : Timer = $"ClickTimer"
 @onready var Animator : AnimationPlayer = $"AnimationPlayer"
+@onready var Heads : MeshInstance3D = $"Heads"
+@onready var Tails : MeshInstance3D = $"Tails"
+
+@export var Colors : Array
+
 var CanClick : bool
 var force : float = 1
 var StartPosition : Vector3
+
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	StartPosition = position
 	CanClick = true
+	print("Size: ", Colors.size())
 	pass # Replace with function body.
 
 
@@ -46,3 +53,12 @@ func _on_area_3d_input_event(camera, event, myposition, normal, shape_idx):
 func _on_click_timer_timeout():
 	CanClick = true
 	pass # Replace with function body.
+
+func get_random_color_Heads():
+	var c1 : int = randi_range(0,Colors.size() -1 )
+	print("C1: " , c1)
+	Heads.get_surface_override_material(0).albedo_color = Colors[c1]
+
+func get_random_color_Tails():
+	var c1 : int = randi_range(0,Colors.size() - 1)
+	Tails.get_surface_override_material(0).albedo_color  = Colors[c1]
