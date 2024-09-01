@@ -17,7 +17,7 @@ var StartPosition : Vector3
 func _ready():
 	StartPosition = position
 	CanClick = true
-	print("Size: ", Colors.size())
+	#first_push()
 	pass # Replace with function body.
 
 
@@ -44,9 +44,8 @@ func _on_area_3d_input_event(camera, event, myposition, normal, shape_idx):
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed == true and CanClick == true:
 			CanClick = false
 			ClickTimer.start()
-			print("Pressed")
 			Animator.play("Flip")
-			apply_impulse(Vector3.UP * force, position)
+			apply_impulse(Vector3.UP * force)
 	pass # Replace with function body.
 
 
@@ -62,3 +61,12 @@ func get_random_color_Heads():
 func get_random_color_Tails():
 	var c1 : int = randi_range(0,Colors.size() - 1)
 	Tails.get_surface_override_material(0).albedo_color  = Colors[c1]
+	
+func first_push():
+	CanClick = false
+	ClickTimer.start()
+	Animator.play("Flip")
+	apply_impulse(Vector3.UP * force)
+
+func AddColors(newColors : Array):
+	Colors = newColors
