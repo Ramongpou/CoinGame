@@ -23,3 +23,9 @@ func Create_Coin():
 	add_child(tempCoin)
 	tempCoin.position.x = 0
 	tempCoin.position.y = 1.5
+
+
+
+func _on_coin_checker_area_entered(area):
+	if area.is_in_group("Coin"):
+		print("Seguro?")

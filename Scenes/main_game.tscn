@@ -1,8 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://ddd1vjs2alur6"]
+[gd_scene load_steps=16 format=3 uid="uid://ddd1vjs2alur6"]
 
 [ext_resource type="Script" path="res://Scripts/MainGame.gd" id="1_6ldtg"]
 [ext_resource type="PackedScene" uid="uid://cmbh87lmu5bvy" path="res://Scenes/Coin.tscn" id="1_hqeiw"]
 [ext_resource type="Texture2D" uid="uid://b2ygv72aqcqxm" path="res://icon.svg" id="2_13343"]
+[ext_resource type="Script" path="res://ProyectileGenerator.gd" id="4_7ufgg"]
+[ext_resource type="PackedScene" uid="uid://bvgnvel6r01f7" path="res://Scenes/Proyectile.tscn" id="4_biv7a"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xbufq"]
 albedo_color = Color(0.647059, 0.988235, 0.576471, 1)
@@ -34,6 +36,45 @@ animations = [{
 "name": &"default",
 "speed": 5.0
 }]
+
+[sub_resource type="Animation" id="Animation_ca6nk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/Start_Panel/Button:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Control/Start_Panel/TextEdit:text")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["2"]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Control/Start_Panel:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_oxtyv"]
 resource_name = "start_Coin"
@@ -89,45 +130,6 @@ tracks/3/keys = {
 }]
 }
 
-[sub_resource type="Animation" id="Animation_ca6nk"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Control/Start_Panel/Button:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Control/Start_Panel/TextEdit:text")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": ["2"]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Control/Start_Panel:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-
 [sub_resource type="Animation" id="Animation_hpyu3"]
 resource_name = "start_game"
 tracks/0/type = "value"
@@ -174,6 +176,9 @@ _data = {
 "start_game": SubResource("Animation_hpyu3")
 }
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_0qd33"]
+size = Vector3(4.10565, 1.15423, 15.2801)
+
 [node name="MainGame" type="Node3D"]
 script = ExtResource("1_6ldtg")
 Coin = ExtResource("1_hqeiw")
@@ -185,14 +190,14 @@ transform = Transform3D(1, 0, 0, 0, 0.905909, 0.423473, 0, -0.423473, 0.905909, 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.515621, 0.856817, 0, -0.856817, 0.515621, -2.16726, 0, 0)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
+[node name="Floor" type="StaticBody3D" parent="."]
 transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 3.6487)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
 transform = Transform3D(3.59021, 0, 0, 0, 1, 0, 0, 0, 3.67494, 0, 0, 0)
 mesh = SubResource("PlaneMesh_0s385")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
 shape = SubResource("BoxShape3D_apvu0")
 
 [node name="Control" type="Control" parent="."]
@@ -247,4 +252,20 @@ libraries = {
 "": SubResource("AnimationLibrary_54crf")
 }
 
+[node name="ProyectileGenerator" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("4_7ufgg")
+Proyectile = ExtResource("4_biv7a")
+
+[node name="CoinChecker" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.623936)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CoinChecker"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.520558, 0)
+shape = SubResource("BoxShape3D_0qd33")
+
 [connection signal="button_down" from="Control/Start_Panel/Button" to="." method="play_clicked"]
+[connection signal="area_entered" from="CoinChecker" to="." method="_on_coin_checker_area_entered"]

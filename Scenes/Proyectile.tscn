@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://bvgnvel6r01f7"]
+
+[ext_resource type="Script" path="res://Scripts/Proyectile.gd" id="1_op2sh"]
+
+[node name="Proyectile" type="Button"]
+z_index = 2
+offset_right = 100.0
+offset_bottom = 100.0
+script = ExtResource("1_op2sh")
+
+[connection signal="button_down" from="." to="." method="_on_button_down"]

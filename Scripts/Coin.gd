@@ -17,7 +17,7 @@ var StartPosition : Vector3
 func _ready():
 	StartPosition = position
 	CanClick = true
-	#first_push()
+	first_push()
 	pass # Replace with function body.
 
 
